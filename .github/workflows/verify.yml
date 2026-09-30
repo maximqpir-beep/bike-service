@@ -1,0 +1,61 @@
+name: Java and PostgreSQL verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: bike_service
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Build and test on H2
+        run: mvn -B clean verify
+      - name: Test with PostgreSQL
+        run: mvn -B test
+        env:
+          TEST_DB_URL: jdbc:postgresql://localhost:5432/bike_service
+          TEST_DB_USER: postgres
+          TEST_DB_PASSWORD: test-only-password
+      - name: Load PostgreSQL demo data
+        run: |
+          psql -h localhost -U postgres -d bike_service -v ON_ERROR_STOP=1 -f sql/01_schema.sql
+          psql -h localhost -U postgres -d bike_service -v ON_ERROR_STOP=1 -f sql/02_seed.sql
+        env:
+          PGPASSWORD: test-only-password
+      - name: Run packaged application and export Excel from PostgreSQL
+        run: printf '8\n6\n7\n0\n' | java -jar target/bike-service-1.0.0.jar
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/bike_service
+          DB_USER: postgres
+          DB_PASSWORD: test-only-password
+      - name: Check Excel exists
+        run: test -n "$(find exports -name '*.xlsx' -size +0c -print -quit)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bike-service-build-and-excel
+          path: |
+            target/bike-service-1.0.0.jar
+            exports/*.xlsx
+            target/surefire-reports/*.txt
