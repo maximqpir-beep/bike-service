@@ -65,9 +65,9 @@ public final class ServiceRequestService {
 
     public List<RequestStatus> allowedStatuses(RequestStatus current) {
         return switch (current) {
-            case CREATED -> List.of(CREATED, RequestStatus.ACCEPTED, RequestStatus.CANCELLED);
-            case ACCEPTED -> List.of(ACCEPTED, RequestStatus.IN_PROGRESS, RequestStatus.CANCELLED);
-            case IN_PROGRESS -> List.of(IN_PROGRESS, RequestStatus.WAITING_FOR_PARTS,
+            case CREATED -> List.of(RequestStatus.CREATED, RequestStatus.ACCEPTED, RequestStatus.CANCELLED);
+            case ACCEPTED -> List.of(RequestStatus.ACCEPTED, RequestStatus.IN_PROGRESS, RequestStatus.CANCELLED);
+            case IN_PROGRESS -> List.of(RequestStatus.IN_PROGRESS, RequestStatus.WAITING_FOR_PARTS,
                     RequestStatus.COMPLETED, RequestStatus.CANCELLED);
             case WAITING_FOR_PARTS -> List.of(RequestStatus.WAITING_FOR_PARTS,
                     RequestStatus.IN_PROGRESS, RequestStatus.CANCELLED);
