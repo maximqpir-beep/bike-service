@@ -64,6 +64,25 @@ jobs:
           TEST_DB_URL: jdbc:postgresql://localhost:5432/bike_service
           TEST_DB_USER: postgres
           TEST_DB_PASSWORD: test-only-password
+      - name: Validate Docker Compose configuration
+        run: docker compose --env-file .env.example config --quiet
+      - name: Smoke test JavaFX FXML under virtual display
+        shell: bash
+        run: |
+          set +e
+          timeout 45s xvfb-run -a mvn -B -f javafx-client/pom.xml javafx:run > /tmp/javafx-smoke.log 2>&1
+          status=$?
+          cat /tmp/javafx-smoke.log
+          if [ "$status" -ne 124 ] && [ "$status" -ne 0 ]; then
+            exit "$status"
+          fi
+          if grep -E "LoadException|Exception in Application start method|BUILD FAILURE" /tmp/javafx-smoke.log; then
+            exit 1
+          fi
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/bike_service
+          DB_USER: postgres
+          DB_PASSWORD: test-only-password
       - uses: actions/upload-artifact@v4
         with:
           name: bike-service-build-and-excel
