@@ -86,6 +86,7 @@ public final class MainController {
 
     private void configureTable() {
         requestTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        requestTable.setPlaceholder(new Label("Заявки не найдены"));
         idColumn.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().id()));
         clientColumn.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().clientName()));
         phoneColumn.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().phone()));
