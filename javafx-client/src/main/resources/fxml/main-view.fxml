@@ -44,7 +44,7 @@
                             </VBox>
                         </top>
                         <center>
-                            <TableView fx:id="requestTable" placeholder="Заявки не найдены">
+                            <TableView fx:id="requestTable">
                                 <columns>
                                     <TableColumn fx:id="idColumn" text="ID" prefWidth="55" minWidth="50" maxWidth="80"/>
                                     <TableColumn fx:id="clientColumn" text="Клиент" prefWidth="150"/>
