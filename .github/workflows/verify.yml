@@ -52,6 +52,18 @@ jobs:
           DB_PASSWORD: test-only-password
       - name: Check Excel exists
         run: test -n "$(find exports -name '*.xlsx' -size +0c -print -quit)"
+      - name: Switch to Java 21 for JavaFX client
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Build and test JavaFX client with PostgreSQL
+        run: mvn -B -f javafx-client/pom.xml clean verify
+        env:
+          TEST_DB_URL: jdbc:postgresql://localhost:5432/bike_service
+          TEST_DB_USER: postgres
+          TEST_DB_PASSWORD: test-only-password
       - uses: actions/upload-artifact@v4
         with:
           name: bike-service-build-and-excel
@@ -59,3 +71,4 @@ jobs:
             target/bike-service-1.0.0.jar
             exports/*.xlsx
             target/surefire-reports/*.txt
+            javafx-client/target/surefire-reports/*.txt

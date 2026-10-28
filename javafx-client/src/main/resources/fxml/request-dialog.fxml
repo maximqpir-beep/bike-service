@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane fx:id="dialogPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.mirea.bikeservice.fx.controller.RequestDialogController"
+            prefWidth="570">
+    <content>
+        <VBox spacing="12">
+            <padding><Insets top="12" right="10" bottom="8" left="10"/></padding>
+            <Label text="Данные заявки" styleClass="dialog-title"/>
+            <GridPane hgap="14" vgap="11">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="155" halignment="RIGHT"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="330"/>
+                </columnConstraints>
+                <Label text="Клиент *" styleClass="field-label" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="clientBox" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <Label text="Марка *" styleClass="field-label" GridPane.rowIndex="1"/>
+                <TextField fx:id="brandField" promptText="Например, Trek" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="Модель" styleClass="field-label" GridPane.rowIndex="2"/>
+                <TextField fx:id="modelField" promptText="Например, Marlin 7" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="Тип велосипеда *" styleClass="field-label" GridPane.rowIndex="3"/>
+                <ComboBox fx:id="bikeTypeBox" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label text="Неисправность *" styleClass="field-label" GridPane.rowIndex="4"/>
+                <TextArea fx:id="problemArea" promptText="Опишите проблему" prefRowCount="4" wrapText="true"
+                          GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <Label text="Стоимость, ₽" styleClass="field-label" GridPane.rowIndex="5"/>
+                <TextField fx:id="costField" promptText="Можно оставить пустой" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <Label text="Статус" styleClass="field-label" GridPane.rowIndex="6"/>
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <ComboBox fx:id="statusBox" maxWidth="Infinity"/>
+                    <Label fx:id="statusHint" styleClass="hint-text" wrapText="true"/>
+                </VBox>
+            </GridPane>
+            <Label text="* — обязательное поле" styleClass="hint-text"/>
+        </VBox>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:constant="OK"/>
+        <ButtonType fx:constant="CANCEL"/>
+    </buttonTypes>
+</DialogPane>

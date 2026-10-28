@@ -1,0 +1,73 @@
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-base: #f5f7fb;
+    -fx-background-color: #f5f7fb;
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #183b56, #245c7a);
+}
+.app-title { -fx-font-size: 27px; -fx-font-weight: bold; -fx-text-fill: white; }
+.app-subtitle { -fx-font-size: 14px; -fx-text-fill: #cfe7f3; }
+.toolbar-panel { -fx-background-color: white; }
+
+.text-field, .combo-box, .text-area {
+    -fx-background-color: white;
+    -fx-border-color: #d8e0e8;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+.text-field:focused, .combo-box:focused, .text-area:focused { -fx-border-color: #2687b8; }
+
+.button {
+    -fx-background-color: #e8eef3;
+    -fx-text-fill: #1f3344;
+    -fx-background-radius: 6;
+    -fx-padding: 8 14;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #dce6ee; }
+.button-primary { -fx-background-color: #1677a6; -fx-text-fill: white; -fx-font-weight: bold; }
+.button-primary:hover { -fx-background-color: #12668f; }
+.button-accent { -fx-background-color: #187c64; -fx-text-fill: white; }
+.button-accent:hover { -fx-background-color: #126853; }
+.button-danger { -fx-background-color: #b83a45; -fx-text-fill: white; }
+.button-danger:hover { -fx-background-color: #9c303a; }
+.button-secondary { -fx-background-color: transparent; -fx-border-color: #b8c7d2; -fx-border-radius: 6; }
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #dce4ea;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+.table-view .column-header-background { -fx-background-color: #edf3f7; }
+.table-view .column-header { -fx-background-color: transparent; -fx-padding: 8 5; }
+.table-row-cell { -fx-background-color: white; -fx-border-color: transparent transparent #edf1f4 transparent; }
+.table-row-cell:selected { -fx-background-color: #cfe8f4; -fx-text-background-color: #132d3d; }
+.table-cell { -fx-padding: 8 7; }
+
+.status-bar { -fx-background-color: #edf3f7; }
+.stats-scroll, .stats-scroll > .viewport { -fx-background-color: #f5f7fb; }
+.section-title { -fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: #183b56; }
+.muted-text, .hint-text { -fx-text-fill: #687b88; }
+.hint-text { -fx-font-size: 11px; }
+.field-label { -fx-font-weight: bold; -fx-text-fill: #334b5c; }
+.dialog-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #183b56; }
+
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #dce4ea;
+    -fx-border-radius: 10;
+    -fx-padding: 18;
+    -fx-spacing: 8;
+    -fx-pref-width: 220;
+    -fx-pref-height: 105;
+}
+.stat-value { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1677a6; }
+.wide-card { -fx-pref-width: 270; }
+
+.dialog-pane { -fx-background-color: #f8fafc; }
+.dialog-pane > .button-bar > .container { -fx-background-color: white; }

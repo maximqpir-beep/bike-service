@@ -4,3 +4,7 @@ target/
 .env
 exports/
 *.log
+javafx-client/target/
+javafx-client/.idea/
+javafx-client/exports/
+data/

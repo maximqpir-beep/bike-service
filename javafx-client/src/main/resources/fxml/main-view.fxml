@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.mirea.bikeservice.fx.controller.MainController"
+            styleClass="app-root">
+    <top>
+        <VBox spacing="6" styleClass="app-header">
+            <padding><Insets top="18" right="24" bottom="16" left="24"/></padding>
+            <Label text="Велосервис" styleClass="app-title"/>
+            <Label text="Заявки на обслуживание велосипедов · КР №2" styleClass="app-subtitle"/>
+        </VBox>
+    </top>
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Заявки">
+                    <BorderPane>
+                        <top>
+                            <VBox spacing="12" styleClass="toolbar-panel">
+                                <padding><Insets top="16" right="18" bottom="14" left="18"/></padding>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <TextField fx:id="searchField" promptText="Поиск: клиент, телефон, марка, модель, неисправность"
+                                               HBox.hgrow="ALWAYS"/>
+                                    <ComboBox fx:id="statusFilter" promptText="Все статусы" prefWidth="180"/>
+                                    <ComboBox fx:id="typeFilter" promptText="Все типы" prefWidth="170"/>
+                                    <Button text="Сбросить" onAction="#resetFilters" styleClass="button-secondary"/>
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="Сортировка:" styleClass="field-label"/>
+                                    <ComboBox fx:id="sortBox" prefWidth="170" onAction="#applySort"/>
+                                    <ComboBox fx:id="directionBox" prefWidth="160" onAction="#applySort"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button text="Добавить" onAction="#addRequest" styleClass="button-primary"/>
+                                    <Button fx:id="editButton" text="Редактировать" onAction="#editRequest" disable="true"/>
+                                    <Button fx:id="deleteButton" text="Удалить" onAction="#deleteRequest"
+                                            disable="true" styleClass="button-danger"/>
+                                    <Button text="Обновить" onAction="#refreshData" styleClass="button-secondary"/>
+                                    <Button text="Экспорт .xlsx" onAction="#exportCurrentView" styleClass="button-accent"/>
+                                </HBox>
+                            </VBox>
+                        </top>
+                        <center>
+                            <TableView fx:id="requestTable" columnResizePolicy="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"
+                                       placeholder="Заявки не найдены">
+                                <columns>
+                                    <TableColumn fx:id="idColumn" text="ID" prefWidth="55" minWidth="50" maxWidth="80"/>
+                                    <TableColumn fx:id="clientColumn" text="Клиент" prefWidth="150"/>
+                                    <TableColumn fx:id="phoneColumn" text="Телефон" prefWidth="125"/>
+                                    <TableColumn fx:id="bikeColumn" text="Велосипед" prefWidth="140"/>
+                                    <TableColumn fx:id="typeColumn" text="Тип" prefWidth="120"/>
+                                    <TableColumn fx:id="problemColumn" text="Неисправность" prefWidth="230"/>
+                                    <TableColumn fx:id="statusColumn" text="Статус" prefWidth="135"/>
+                                    <TableColumn fx:id="costColumn" text="Стоимость" prefWidth="110"/>
+                                    <TableColumn fx:id="createdColumn" text="Создана" prefWidth="135"/>
+                                </columns>
+                                <BorderPane.margin><Insets top="0" right="18" bottom="0" left="18"/></BorderPane.margin>
+                            </TableView>
+                        </center>
+                        <bottom>
+                            <HBox styleClass="status-bar" alignment="CENTER_LEFT">
+                                <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+                                <Label fx:id="statusLabel" text="Подключение к базе данных…"/>
+                            </HBox>
+                        </bottom>
+                    </BorderPane>
+                </Tab>
+                <Tab text="Статистика">
+                    <ScrollPane fitToWidth="true" styleClass="stats-scroll">
+                        <content>
+                            <VBox spacing="18" styleClass="stats-page">
+                                <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+                                <Label text="Статистика велосервиса" styleClass="section-title"/>
+                                <Label text="Показатели пересчитываются после каждого обновления данных."
+                                       styleClass="muted-text"/>
+                                <TilePane prefColumns="4" hgap="16" vgap="16" tileAlignment="CENTER_LEFT">
+                                    <VBox styleClass="stat-card"><Label text="Клиентов"/><Label fx:id="clientsStat" text="0" styleClass="stat-value"/></VBox>
+                                    <VBox styleClass="stat-card"><Label text="Всего заявок"/><Label fx:id="requestsStat" text="0" styleClass="stat-value"/></VBox>
+                                    <VBox styleClass="stat-card"><Label text="Активных"/><Label fx:id="activeStat" text="0" styleClass="stat-value"/></VBox>
+                                    <VBox styleClass="stat-card"><Label text="Ожидают запчасти"/><Label fx:id="waitingStat" text="0" styleClass="stat-value"/></VBox>
+                                    <VBox styleClass="stat-card"><Label text="Завершено"/><Label fx:id="completedStat" text="0" styleClass="stat-value"/></VBox>
+                                    <VBox styleClass="stat-card"><Label text="Отменено"/><Label fx:id="cancelledStat" text="0" styleClass="stat-value"/></VBox>
+                                    <VBox styleClass="stat-card wide-card"><Label text="Средняя указанная стоимость"/><Label fx:id="averageCostStat" text="0 ₽" styleClass="stat-value"/></VBox>
+                                    <VBox styleClass="stat-card wide-card"><Label text="Стоимость завершённых работ"/><Label fx:id="revenueStat" text="0 ₽" styleClass="stat-value"/></VBox>
+                                </TilePane>
+                                <Button text="Обновить статистику" onAction="#refreshData" styleClass="button-primary" maxWidth="220"/>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
